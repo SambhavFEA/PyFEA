@@ -26,9 +26,9 @@ class Model:
 
         nodesSize = np.shape(nodes)
 
-        kStif = np.zeros((nodesSize(0)*self.ndof,nodesSize(0)*self.ndof))
-        uDisp = np.zeros(nodesSize(0)*self.ndof)
-        fForce = np.zeros(nodesSize(0)*self.ndof)
+        kStif = np.zeros((nodesSize[0]*self.ndof,nodesSize[0]*self.ndof))
+        uDisp = np.zeros(nodesSize[0]*self.ndof)
+        fForce = np.zeros(nodesSize[0]*self.ndof)
         return
 
 def readInput():
