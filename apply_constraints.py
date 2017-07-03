@@ -33,4 +33,7 @@ def apply_constraints (part):
     np.delete(kstiff,positions,axis=0)
     np.delete(kstiff, positions, axis=1)
 
+    setattr(part, 'uDisp', dd)
+    setattr(part, 'kStiff', kstiff)
+
     return
