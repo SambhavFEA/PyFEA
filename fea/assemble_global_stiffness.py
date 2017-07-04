@@ -39,3 +39,5 @@ def getDof(data):
 def apoorvname():
     return "Apoorv Garg"
                 
+def amishname():
+    return "Amish Gadigi"
