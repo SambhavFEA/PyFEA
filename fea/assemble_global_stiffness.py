@@ -35,4 +35,7 @@ def getNumOfNodes(self, connectivity):
 def getDof(data):
     return 2    #Finalize on how to decide degree of freedom
 
+# Changes
+def apoorvname():
+    return "Apoorv Garg"
                 
