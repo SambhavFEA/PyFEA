@@ -3,7 +3,7 @@ import numpy as np
 #Initializing
 
 
-def read_input_2D(self,filename):
+def read_input_2D(filename):
     
     f = open(filename,'r')
     lines = f.readlines()
@@ -17,9 +17,9 @@ def read_input_2D(self,filename):
     #Connectivity Matrix
     num_elem = int(lines[7+num_node_coord][0]) 
     #Dynamic nnpe (nnpe stays const)
-    nnpe = np.shape((list(map(int,lines[8+num_node_coord].split(" "))))[0])
+    nnpe = np.shape((list(map(int,lines[8+num_node_coord].split(" ")))))[0]
     
-    Elem = np.zeros([num_elem,nnpe]) 
+    Elem = np.zeros((num_elem,nnpe))
     for j in range(num_elem):
         Elem[j] = list(map(int,lines[7+num_node_coord+j+1].split(" ")))
         
@@ -27,7 +27,7 @@ def read_input_2D(self,filename):
     num_of_mat_prop = int(lines[11+num_node_coord+num_elem])        #Hash Mapping can be used for different type of material properties. Dummy!
     Material = np.zeros([num_of_mat_prop,1])
     for k in range(num_of_mat_prop):
-        Material[k] = int(lines[11+num_node_coord+num_elem+k+1])
+        Material[k] = float(lines[11+num_node_coord+num_elem+k+1])
 
     #Boundary Constraint
     num_of_bc = int(lines[15+num_node_coord+num_elem+num_of_mat_prop])
