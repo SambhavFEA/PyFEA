@@ -1,13 +1,13 @@
 
 import numpy as np
 
-class Model:
+class Model(object):
 
     ele = np.array([[],[4]])                #ele[element no, node no]   ---- ele[n,4] size
     nodes = np.array([[],[2]])              #nodes[node no, coordinates]  ----- nodes[n,2] size
     material = np.array([])
-    forces = np.array([],[3])               #forces[forceno,[node number, forcex, forcey]
-    boundary_constraints = np.array([], [3])          #constraints[constraint no,[node number, dof,val]]
+    forces = np.array([[],[3]])               #forces[forceno,[node number, forcex, forcey]
+    boundary_constraints = np.array([[], [3]])          #constraints[constraint no,[node number, dof,val]]
 
     kStif = np.zeros([],[])
     uDisp = np.zeros([])
@@ -16,7 +16,7 @@ class Model:
     ndof = 2
     nnpe = 4
 
-    def _init_(self,elements,nodes,material,forces,fixtures):
+    def __init__(self,elements,nodes,material,forces,fixtures):
         #input must be elements, nodes and materials
         ele=elements
         self.nodes = nodes
@@ -31,8 +31,8 @@ class Model:
         fForce = np.zeros(nodesSize[0]*self.ndof)
         return
 
-    def _init_(self,filename):
-        self.read_input_2D(self,filename)
+    def __init__(self,filename):
+        self.read_input_2D(filename)
 
     def read_input_2D(self,filename):
 
@@ -77,6 +77,4 @@ def readInput():
  return
 
 
-def main():
 
- return
