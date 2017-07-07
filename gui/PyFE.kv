@@ -1,0 +1,28 @@
+#:kivy 1.10
+
+<PyFEA>:
+
+    but:but
+    txt_inp:txt_inp
+
+    BoxLayout:
+
+        orientation:'vertical'
+        top:root.top
+
+        Button:
+            id: but
+            height:25
+            top: root.top
+            text:"Open"
+            on_press:root.open()
+
+        CustomInput:
+            id: txt_inp
+            top:but.top-but.height
+            height:self.minimum_height
+            focus:True
+            multiline: False
+            text: "C:\Users\\amish\PycharmProjects\PyFEA\TestFile.txt"
+
+
