@@ -1,10 +1,10 @@
 #Node Coordinate
 X	Y
 6
-0.0 1.0
 0.0 0.0
-1.0 0.0
+0.0 1.0
 1.0 1.0
+1.0 0.0
 2.0 1.0
 2.0 0.0
 
@@ -12,7 +12,7 @@ X	Y
 Element Node1	Node2	Node3	Node4
 2
 1 2 3 4
-4 3 6 5
+4 3 5 6
 
 #Material Properties
 E		Poisson`s Ratio

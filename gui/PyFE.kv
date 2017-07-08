@@ -1,5 +1,7 @@
 #:kivy 1.10
 
+
+
 <OpenDialog>:
     but:but
     txt_inp:txt_inp
@@ -44,8 +46,10 @@
 
         Blackboard:
             id: grid
-
-            #size:self.update_grid
-
+            size_hint:None,None
+            width:600
+            height:600
+            on_press:self.select_rec()
+            on_release:self.stop_press()
             canvas:
 

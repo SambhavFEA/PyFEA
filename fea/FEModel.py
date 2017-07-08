@@ -75,8 +75,10 @@ class FEModel(object):
                 map(float, lines[19 + num_node_coord + num_elem + num_of_mat_prop + num_of_bc + m + 1].split(" ")))
 
 
-def readInput():
-    return
+
+    def bottomleftnode(self,element_no): #return the node number of bottom left node.  Maybe unnecessary.
+
+        pass
 
 
 def main():
