@@ -1,12 +1,12 @@
 import numpy as np
 
 
-class FEModel:
+class FEModel(object):
     ele = np.array([[], [4]])  # ele[element no, node no]   ---- ele[n,4] size
     nodes = np.array([[], [2]])  # nodes[node no, coordinates]  ----- nodes[n,2] size
     material = np.array([])
-    forces = np.array([], [])  # forces[forceno,[node number, forcex, forcey]
-    boundary_constraints = np.array([], [])  # constraints[constraint no,[node number, dof,val]]
+    forces = np.array([[], []])  # forces[forceno,[node number, forcex, forcey]
+    boundary_constraints = np.array([[], []])  # constraints[constraint no,[node number, dof,val]]
 
     kStif = np.zeros([], [])
     uDisp = np.zeros([])
@@ -33,7 +33,7 @@ class FEModel:
     def __init__(self, filename):
         self.read_input_2D(filename)
 
-    def read_input_2D(self, filename):
+    def read_input_2D(self,filename):
 
         f = open(filename, 'r')
         lines = f.readlines()

@@ -10,6 +10,7 @@ Purpose - Return assembled global stiffness matrix
 """
 import numpy as np
 
+
 def assemble_global_stiffness(self,elm_stiff,elem_connectivity,data):
     num_of_elem = getNumOfElem(elem_connectivity)
     num_of_nodes_elem = getNumOfNodes(elem_connectivity)
