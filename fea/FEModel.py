@@ -17,7 +17,7 @@ class FEModel(object):
 
     def __init__(self, elements, nodes, material, forces, fixtures):
         # input must be elements, nodes and materials
-        #ele = elements      This line seems unnecessary.
+        ele = elements  # This line seems unnecessary.
         self.nodes = nodes
         self.material = material
         self.forces = forces
