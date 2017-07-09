@@ -17,7 +17,7 @@ class FEModel(object):
 
     def __init__(self, elements, nodes, material, forces, fixtures):
         # input must be elements, nodes and materials
-        ele = elements  # This line seems unnecessary.
+        ele = elements
         self.nodes = nodes
         self.material = material
         self.forces = forces
@@ -45,39 +45,38 @@ class FEModel(object):
             self.nodes[i] = list(map(float, lines[2 + i + 1].split(" ")))
 
         # Connectivity Matrix
-        num_elem = int(lines[6 + num_node_coord][0])
+        num_elem = int(lines[7 + num_node_coord][0])
         # Dynamic nnpe (nnpe stays const)
         nnpe = np.shape((list(map(int, lines[8 + num_node_coord].split(" ")))))[0]
 
         self.ele = np.zeros((num_elem, nnpe))
         for j in range(num_elem):
-            self.ele[j] = list(map(int, lines[7 + num_node_coord + j ].split(" ")))
+            self.ele[j] = list(map(int, lines[7 + num_node_coord + j + 1].split(" ")))
 
         # Material Properties
-        num_of_mat_prop = int(lines[10 + num_node_coord + num_elem])  # Hash Mapping can be used for different type of material properties. Dummy!
+        num_of_mat_prop = int(lines[
+                                  11 + num_node_coord + num_elem])  # Hash Mapping can be used for different type of material properties. Dummy!
         self.material = np.zeros([num_of_mat_prop, 1])
         for k in range(num_of_mat_prop):
-            self.material[k] = float(lines[10 + num_node_coord + num_elem + k+1 ])
+            self.material[k] = float(lines[11 + num_node_coord + num_elem + k + 1])
 
         # Boundary Constraint
-        num_of_bc = int(lines[14 + num_node_coord + num_elem + num_of_mat_prop])
+        num_of_bc = int(lines[15 + num_node_coord + num_elem + num_of_mat_prop])
         self.boundary_constraints = np.zeros([num_of_bc, 3])
         for l in range(num_of_bc):
             self.boundary_constraints[l] = list(
-                map(float, lines[14 + num_node_coord + num_elem + num_of_mat_prop + l+1].split(" ")))
+                map(float, lines[15 + num_node_coord + num_elem + num_of_mat_prop + l + 1].split(" ")))
 
         # Force Constraint
-        num_of_fc = int(lines[18 + num_node_coord + num_elem + num_of_mat_prop + num_of_bc])
+        num_of_fc = int(lines[19 + num_node_coord + num_elem + num_of_mat_prop + num_of_bc])
         self.forces = np.zeros([num_of_fc, 3])
         for m in range(num_of_fc):
             self.forces[m] = list(
-                map(float, lines[18 + num_node_coord + num_elem + num_of_mat_prop + num_of_bc + m +1].split(" ")))
+                map(float, lines[19 + num_node_coord + num_elem + num_of_mat_prop + num_of_bc + m + 1].split(" ")))
 
 
-
-    def bottomleftnode(self,element_no): #return the node number of bottom left node.  Maybe unnecessary.
-
-        pass
+def readInput():
+    return
 
 
 def main():
