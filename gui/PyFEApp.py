@@ -67,7 +67,7 @@ class Blackboard(ButtonBehavior, Widget):
         x = int(math.floor(pos[0] / self.elementsize))
         y = int(math.floor(pos[1] / self.elementsize))
         self.rec[x, y] = 1
-        self.pressed = Clock.create_trigger(self.select_rec, 0.01)
+        self.pressed = Clock.schedule_once(self.select_rec, 0.001)
         # self.update_grid()
 
     def stop_press(self):
