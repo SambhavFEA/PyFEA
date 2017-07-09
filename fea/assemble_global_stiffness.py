@@ -18,6 +18,7 @@ def assemble_global_stiffness(model = FEModel.FEModel):
     model.kStif = elem_stiff(model)
     model.global_stiffness = np.array([[],[]])
 
+
     for elem_num in range(num_of_elem):
         for a in range(num_of_nodes_elem):
             for i in range(dof_node):
@@ -26,6 +27,7 @@ def assemble_global_stiffness(model = FEModel.FEModel):
                         row = dof_node*(int(model.ele[elem_num, a + 1])) + i    # Not sure how elem_connectivity table will look like
                         col = dof_node*(int(model.ele[elem_num, b + 1])) + j
                         model.global_stiffness[row,col] = model.global_stiffness[row,col] + model.kStif[(dof_node * a) + i, (dof_node * b) + j]  # Cross-check the valus of elem_stiffness corresponding to global position
+
 
 
 def getNumOfElem(model = FEModel.FEModel):
