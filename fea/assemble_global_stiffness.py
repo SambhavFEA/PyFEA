@@ -44,14 +44,18 @@ def elem_stiff(model=FEModel.FEModel):
     E = model.material[0][0]
     nu = model.material[1][0]
 
-    k = np.multiply((E/((1+nu)*(1-2*nu))),
-         [[1-nu, nu, nu, 0., 0., 0.],
-         [nu, 1-nu, nu, 0., 0., 0.],
-         [nu, nu, 1-nu, 0., 0., 0.],
-         [0., 0., 0., 1-(2*nu), 0., 0.],
-         [0., 0., 0., 0., 1-(2*nu), 0.],
-         [0., 0., 0., 0., 0., 1-(2*nu)]])
-    return k
+    k = [1/2-(nu/6),1/8+(nu/8), -1/4-(nu/12), -1/8+(3*(nu/8)), -1/4+(nu/12), -1/8-(nu/8), nu/6, 1/8-(3*(nu/8))]
+
+    kStiff = np.multiply((E/(1-(nu^2))),
+         [[k[0], k[1], k[2], k[3], k[4], k[5], k[6], k[7],
+          [k[1], k[0], k[7], k[6], k[5], k[4], k[3], k[2]],
+          [k[2], k[7], k[0], k[5], k[6], k[3], k[4], k[1]],
+          [k[3], k[6], k[5], k[0], k[7], k[2], k[1], k[4]],
+          [k[4], k[5], k[6], k[7], k[0], k[1], k[2], k[3]],
+          [k[5], k[4], k[3], k[2], k[1], k[0], k[7], k[6]]
+          [k[6], k[3], k[4], k[1], k[2], k[7], k[0], k[5]],
+          [k[7], k[2], k[1], k[4], k[3], k[6], k[5], k[0]]]])
+    return kStiff
 # Changes
 def apoorvname():
     return "Apoorv Garg"
