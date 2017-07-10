@@ -1,28 +1,55 @@
 #:kivy 1.10
 
-<PyFEA>:
 
+
+<OpenDialog>:
     but:but
     txt_inp:txt_inp
+    fc:filechooser
 
     BoxLayout:
-
         orientation:'vertical'
-        top:root.top
+
+        BoxLayout:
+            size_hint:1,None
+            height:30
+            Button:
+                id: but
+                size_hint:None,1
+                width:40
+                text:"Open"
+                on_press:root.open()
+
+            CustomInput:
+                id: txt_inp
+                multiline: False
+                text: filechooser.path
+
+        FileChooser:
+            id:filechooser
+            FileChooserIconLayout
+            FileChooserListLayout
+
+
+<ModelScreen>:
+    grid:grid
+
+    BoxLayout:
+        orientation:'vertical'
 
         Button:
             id: but
-            height:25
-            top: root.top
+            size_hint:None,None
+            width:40
+            height:40
             text:"Open"
-            on_press:root.open()
 
-        CustomInput:
-            id: txt_inp
-            top:but.top-but.height
-            height:self.minimum_height
-            focus:True
-            multiline: False
-            text: "C:\Users\\amish\PycharmProjects\PyFEA\TestFile.txt"
-
+        Blackboard:
+            id: grid
+            size_hint:None,None
+            width:600
+            height:600
+            on_press:self.select_rec()
+            on_release:self.stop_press()
+            canvas:
 

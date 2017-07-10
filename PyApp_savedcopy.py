@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jul  9 01:02:40 2017
+
+@author: Apoorv
+"""
+
 from kivy.config import Config
 
 Config.set('graphics', 'resizable', False)
@@ -67,7 +74,7 @@ class Blackboard(ButtonBehavior, Widget):
         x = int(math.floor(pos[0] / self.elementsize))
         y = int(math.floor(pos[1] / self.elementsize))
         self.rec[x, y] = 1
-        self.pressed = Clock.schedule_once(self.select_rec, 0.001)
+        self.pressed = Clock.create_trigger(self.select_rec, 0.01)
         # self.update_grid()
 
     def stop_press(self):
