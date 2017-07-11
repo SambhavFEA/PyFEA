@@ -14,9 +14,10 @@ import FEModel
 def assemble_global_stiffness(model = FEModel.FEModel):
     num_of_elem = getNumOfElem(model)
     num_of_nodes_elem = getNumOfNodes(model)
+    total_num_of_nodes = getTotalNodes(model)
     dof_node = getDof(model)
     model.kStif = elem_stiff(model)
-    model.global_stiffness = np.zeros((num_of_elem*dof_node,num_of_elem*dof_node))
+    model.global_stiffness = np.zeros((total_num_of_nodes*dof_node, total_num_of_nodes*dof_node))
 
 
     for elem_num in range(num_of_elem):
@@ -24,9 +25,9 @@ def assemble_global_stiffness(model = FEModel.FEModel):
             for i in range(dof_node):
                 for b in range(num_of_nodes_elem):
                     for j in range(dof_node):
-                        row = dof_node*(int(model.ele[elem_num, a])) + i    # Not sure how elem_connectivity table will look like
-                        col = dof_node*(int(model.ele[elem_num, b])) + j
-                        model.global_stiffness[row,col] = model.global_stiffness[row,col] + model.kStif[(dof_node * a) + i, (dof_node * b) + j]  # Cross-check the valus of elem_stiffness corresponding to global position
+                        row = dof_node*(int(model.ele[elem_num, a]-1)) + i    # Not sure how elem_connectivity table will look like
+                        col = dof_node*(int(model.ele[elem_num, b]-1)) + j
+                        model.global_stiffness[row, col] = model.global_stiffness[row, col] + model.kStif[(dof_node * a) + i, (dof_node * b) + j]  # Cross-check the valus of elem_stiffness corresponding to global position
 
 
 
@@ -34,8 +35,10 @@ def getNumOfElem(model = FEModel.FEModel):
     return len(model.ele)
 
 def getNumOfNodes(model = FEModel.FEModel):
-    return (len(model.nodes))
+    return (len(model.ele[0]))  #Number of nodes per element is constant
 
+def getTotalNodes(model = FEModel.FEModel):
+    return len(model.nodes)
 def getDof(data):
     return 2    #Finalize on how to decide degree of freedom
 
@@ -46,15 +49,15 @@ def elem_stiff(model=FEModel.FEModel):
 
     k = [1/2-(nu/6),1/8+(nu/8), -1/4-(nu/12), -1/8+(3*(nu/8)), -1/4+(nu/12), -1/8-(nu/8), nu/6, 1/8-(3*(nu/8))]
 
-    kStiff = np.multiply((E/(1-(nu^2))),
-         [[k[0], k[1], k[2], k[3], k[4], k[5], k[6], k[7],
+    kStiff = np.multiply((E/(1-(nu**2))),
+         [[k[0], k[1], k[2], k[3], k[4], k[5], k[6], k[7]],
           [k[1], k[0], k[7], k[6], k[5], k[4], k[3], k[2]],
           [k[2], k[7], k[0], k[5], k[6], k[3], k[4], k[1]],
           [k[3], k[6], k[5], k[0], k[7], k[2], k[1], k[4]],
           [k[4], k[5], k[6], k[7], k[0], k[1], k[2], k[3]],
-          [k[5], k[4], k[3], k[2], k[1], k[0], k[7], k[6]]
+          [k[5], k[4], k[3], k[2], k[1], k[0], k[7], k[6]],
           [k[6], k[3], k[4], k[1], k[2], k[7], k[0], k[5]],
-          [k[7], k[2], k[1], k[4], k[3], k[6], k[5], k[0]]]])
+          [k[7], k[2], k[1], k[4], k[3], k[6], k[5], k[0]]])
     return kStiff
 # Changes
 def apoorvname():

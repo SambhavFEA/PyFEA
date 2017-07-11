@@ -6,4 +6,5 @@ if __name__ == '__main__':
     Mod = FEModel.FEModel('2DMeshTest.sam')
     assemble_global_stiffness(Mod)
     print Mod.global_stiffness
+    pass
 
