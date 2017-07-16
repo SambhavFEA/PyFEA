@@ -1,38 +1,41 @@
 import numpy as np
+import FEModel
 
 
-def apply_constraints(part):
-    positions = np.zeros([])
+def apply_constraints(model = FEModel.FEModel):
 
-    ndof = getattr(part, 'ndof')
-    nnpe = getattr(part, 'nnpe')
+    ndof = getattr(model, 'ndof')
+    nnpe = getattr(model, 'nnpe')
+    num_of_nodes = len(getattr(model, 'nodes'))
 
-    forces = getattr(part, 'forces')
+    model.positions = np.array([])
+
+    forces = getattr(model, 'forces')
     forces_size = np.shape(forces)
-    ff = getattr(part, 'fForce')
+    ff = getattr(model, 'fForce')
 
-    for i in forces_size[0]:
-        node_num = forces[i, 0]
-        ff[node_num * ndof] = forces[i, 1]
-        ff[(node_num * ndof) + 1] = forces[i, 2]
+    for i in range(forces_size[0]):
+        node_num = int(forces[i, 0])
+        ff[(node_num-1) * ndof] = forces[i, 1]
+        ff[((node_num-1) * ndof) + 1] = forces[i, 2]
 
-    setattr(part, 'fForce', ff)
+    setattr(model, 'fForce', ff)
 
-    displacement = getattr(part, 'constraints')
+    displacement = getattr(model, 'boundary_constraints')
     disp_size = np.shape(displacement)
-    dd = getattr(part, 'uDisp')
+    dd = getattr(model, 'uDisp')
 
-    for i in disp_size[0]:
-        node_num = displacement[i, 0]
-        dd[(node_num * ndof) + displacement[i, 1]] = displacement[i, 2]
-        if displacement[i, 2] == 0:
-            np.append(positions, (displacement[i, 0] * ndof) + displacement[i, 1], axis=0)
+    for i in range(disp_size[0]):
+        node_num = int(displacement[i, 0])
+        dd[(node_num * ndof) + int(displacement[i, 1])] = displacement[i, 2]
+        if displacement[i, 2] == 0.:
+            np.append(model.positions, int((displacement[i, 0] * ndof) + displacement[i, 1]))   #Append command not working. Positions is still an empty array
 
-    kstiff = getattr(part, 'kStiff')
-    np.delete(kstiff, positions, axis=0)
-    np.delete(kstiff, positions, axis=1)
+    kstiff = getattr(model, 'kStif')
+    np.delete(kstiff, model.positions, axis=0)
+    np.delete(kstiff, model.positions, axis=1)
 
-    setattr(part, 'uDisp', dd)
-    setattr(part, 'kStiff', kstiff)
+    setattr(model, 'uDisp', dd)
+    setattr(model, 'kStif', kstiff)
 
     return

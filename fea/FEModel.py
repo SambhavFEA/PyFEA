@@ -73,7 +73,10 @@ class FEModel(object):
             self.forces[m] = list(
                 map(float, lines[18 + num_node_coord + num_elem + num_of_mat_prop + num_of_bc + m +1].split(" ")))
 
-
+        #Variable X and F set up {KX = F}
+        nodesSize = np.shape(self.nodes)
+        self.uDisp = np.zeros(nodesSize[0] * self.ndof)
+        self.fForce = np.zeros(nodesSize[0] * self.ndof)
 
     def bottomleftnode(self,element_no): #return the node number of bottom left node.  Maybe unnecessary.
 
