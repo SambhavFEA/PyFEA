@@ -38,9 +38,10 @@ class OpenDialog(Screen):
     def open(self):
         location = self.fc.selection[0]
         part = FEModel(location)
-
-        self.parent.current = 'model'
         self.parent.get_screen('model').grid.part = part
+        self.parent.get_screen('model').grid.load()
+        self.parent.current = 'model'
+
         pass
 
 
@@ -59,23 +60,32 @@ class Blackboard(ButtonBehavior, Widget):
             self.canvas.clear()
             for i in range(0, self.xPos):
                 for j in range(0, self.yPos):
-                    Color(1, 1 - self.rec[i, j], 1 - self.rec[i, j])
+                    Color(self.rec[i, j, 0], self.rec[i, j, 1], self.rec[i, j, 2])
                     Rectangle(pos=(i * element_size, j * element_size), size=(element_size - 1, element_size - 1))
 
     def select_rec(self, *args):
         pos = Window.mouse_pos
         x = int(math.floor(pos[0] / self.elementsize))
         y = int(math.floor(pos[1] / self.elementsize))
-        self.rec[x, y] = 1
+        if self.parent.parent.ids.tbutPart.state == 'down':
+            self.rec[x, y, :] = [0, 0, 1]
         self.pressed = Clock.schedule_once(self.select_rec, 0.001)
-        # self.update_grid()
 
     def stop_press(self):
         Clock.unschedule(self.pressed)
 
+    def load(self):
+        ele_size=np.shape(self.part.ele)
+        for i in range(ele_size[0]):
+            pos = self.part.nodes[int(self.part.ele[i,0]) - 1,:]
+            self.rec[int(pos[0]), int(pos[1]),:] = [0, 0, 1]
+
 
 class ModelScreen(Screen):
     grid = ObjectProperty(None)
+
+    def open_screen(self):
+        self.parent.current = 'open'
 
 
 class PyFEApp(App):
@@ -96,8 +106,7 @@ class PyFEApp(App):
         element_size = black_board.elementsize
         black_board.yPos = int(round(black_board.height / element_size))
         black_board.xPos = int(round(black_board.width / element_size))
-        black_board.rec = np.zeros((black_board.xPos, black_board.yPos))
-        # black_board.update_grid()
+        black_board.rec = np.ones((black_board.xPos, black_board.yPos,3))
         black_board.refresh = Clock.schedule_interval(black_board.update_grid, 0.1)
         return root
 

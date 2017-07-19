@@ -1,7 +1,5 @@
 #:kivy 1.10
 
-
-
 <OpenDialog>:
     but:but
     txt_inp:txt_inp
@@ -11,8 +9,10 @@
         orientation:'vertical'
 
         BoxLayout:
+
             size_hint:1,None
             height:30
+
             Button:
                 id: but
                 size_hint:None,1
@@ -37,12 +37,46 @@
     BoxLayout:
         orientation:'vertical'
 
-        Button:
-            id: but
-            size_hint:None,None
-            width:40
+        BoxLayout:
             height:40
-            text:"Open"
+
+            Button:
+                id: butOpen
+                size_hint:None,1
+                width:40
+                text:"Open"
+                on_press:root.open_screen()
+
+            Button:
+                id: butSave
+                size_hint:None,1
+                width:40
+                text:"Save"
+
+            ToggleButton:
+                id: tbutPart
+                group: "container_action"
+                size_hint:None,1
+                width:40
+                text:"Part"
+
+            ToggleButton:
+                id: tbutForce
+                group: "container_action"
+                size_hint:None,1
+                width:60
+                text:"Forces"
+
+            ToggleButton:
+                id: tbutConstraint
+                group: "container_action"
+                size_hint:None,1
+                width:100
+                text:"Constraints"
+
+            CustomInput:
+                id: material
+                multiline: False
 
         Blackboard:
             id: grid
