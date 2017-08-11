@@ -82,6 +82,4 @@ class FEModel(object):
 
         pass
 
-
-def main():
-    return
+ 
