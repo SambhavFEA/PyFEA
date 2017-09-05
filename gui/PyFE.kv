@@ -1,7 +1,5 @@
 #:kivy 1.10
 
-
-
 <OpenDialog>:
     but:but
     txt_inp:txt_inp
@@ -11,8 +9,10 @@
         orientation:'vertical'
 
         BoxLayout:
+
             size_hint:1,None
             height:30
+
             Button:
                 id: but
                 size_hint:None,1
@@ -37,12 +37,68 @@
     BoxLayout:
         orientation:'vertical'
 
-        Button:
-            id: but
-            size_hint:None,None
-            width:40
+        BoxLayout:
             height:40
-            text:"Open"
+
+            Button:
+                id: butOpen
+                size_hint:None,1
+                width:40
+                text:"Open"
+                on_press:root.open_screen()
+
+            Button:
+                id: butSave
+                size_hint:None,1
+                width:40
+                text:"Save"
+                on_press: root.save()
+
+            Button:
+                id: butMaterial
+                size_hint:None,1
+                width:40
+                text:"Material"
+                on_press:root.material_screen()
+
+            ToggleButton:
+                id: tbutPart
+                group: "container_action"
+                size_hint:None,1
+                width:40
+                text:"Part"
+
+            ToggleButton:
+                id: tbutForceV
+                group: "container_action"
+                size_hint:None,1
+                width:60
+                text:"Forces V"
+
+            ToggleButton:
+                id: tbutForceH
+                group: "container_action"
+                size_hint:None,1
+                width:60
+                text:"Forces H"
+
+            ToggleButton:
+                id: tbutSupportV
+                group: "container_action"
+                size_hint:None,1
+                width:100
+                text:"Supports V"
+
+            ToggleButton:
+                id: tbutSupportH
+                group: "container_action"
+                size_hint:None,1
+                width:100
+                text:"Supports H"
+
+            CustomInput:
+                id: material
+                multiline: False
 
         Blackboard:
             id: grid
@@ -53,3 +109,61 @@
             on_release:self.stop_press()
             canvas:
 
+<MaterialScreen>:
+    material1: young
+    material2: poisson
+    BoxLayout:
+        orientation: 'vertical'
+
+        BoxLayout:
+            height: 40
+
+            Label:
+                text: 'Material Properties'
+
+        BoxLayout:
+            height: 40
+
+            Label:
+                text: 'Young Modulus'
+
+            CustomInput:
+                id: young
+                multiline: False
+
+        BoxLayout:
+            height: 40
+
+            Label:
+                text: 'Poisson ratio'
+
+            CustomInput:
+                id: poisson
+                multiline: False
+
+        BoxLayout:
+            height: 40
+
+            Button:
+                text: 'Save'
+                on_press: root.model_screen()
+
+
+<ResultScreen>:
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        BoxLayout:
+            height: 40
+
+            Button:
+                text: 'Solve'
+                on_press: root.solve()
+
+        Blackboard:
+            id: result
+            size_hint:None,None
+            width:600
+            height:600
+            canvas:

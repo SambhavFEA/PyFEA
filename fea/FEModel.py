@@ -4,7 +4,7 @@ import numpy as np
 class FEModel(object):
     ele = np.array([[], [4]])  # ele[element no, node no]   ---- ele[n,4] size
     nodes = np.array([[], [2]])  # nodes[node no, coordinates]  ----- nodes[n,2] size
-    material = np.array([])
+    material = np.array([])     # material[material propert 1, material property 2, .....]
     forces = np.array([[], []])  # forces[forceno,[node number, forcex, forcey]
     boundary_constraints = np.array([[], []])  # constraints[constraint no,[node number, dof,val]]
 
@@ -15,9 +15,15 @@ class FEModel(object):
     ndof = 2
     nnpe = 4
 
-    def __init__(self, elements, nodes, material, forces, fixtures):
+    def __init__(self, *args):
+        if len(args) == 1:
+            self.read_input_2D(args[0])
+        else:
+            self.fe_model(args[0], args[1], args[2], args[3], args[4])
+
+    def fe_model(self, elements, nodes, material, forces, fixtures):
         # input must be elements, nodes and materials
-        ele = elements  # This line seems unnecessary.
+        ele = elements
         self.nodes = nodes
         self.material = material
         self.forces = forces
@@ -29,9 +35,6 @@ class FEModel(object):
         uDisp = np.zeros(nodesSize[0] * self.ndof)
         fForce = np.zeros(nodesSize[0] * self.ndof)
         return
-
-    def __init__(self, filename):
-        self.read_input_2D(filename)
 
     def read_input_2D(self,filename):
 
