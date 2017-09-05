@@ -1,0 +1,29 @@
+#Node Coordinate
+X  Y
+6
+[ 0.  1.]
+[ 0.  0.]
+[ 1.  0.]
+[ 1.  1.]
+[ 2.  1.]
+[ 2.  0.]
+ #Connectivity Matrix
+Element    Node1   Node2	Node3	Node4
+2
+[ 1.  2.  3.  4.]
+[ 4.  3.  6.  5.]
+ #Material Properties
+E  Poisson`s Ratio
+2
+[ 20000.]
+[ 0.33]
+ #Boundary Condition
+Node    DOF     Value
+2
+[ 20000.]
+[ 0.33]
+ #Force
+Node   Fx  Fy
+2
+[   5.  200.    0.]
+[   6.  200.    0.]
