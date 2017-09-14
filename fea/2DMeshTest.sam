@@ -11,8 +11,8 @@ X	Y
 #Connectivity Table
 Element Node1	Node2	Node3	Node4
 2
-1 2 3 4
-4 3 6 5
+0 1 2 3
+3 2 5 4
 
 #Material Properties
 E		Poisson`s Ratio
@@ -23,14 +23,14 @@ E		Poisson`s Ratio
 #Boundary Condition
 ConstraintNo	Node	DOF		Value
 4
+0 0 0
+0 1 0
+1 0 0
 1 1 0
-1 2 0
-2 1 0
-2 2 0
 	
 #Force
 Node	Fx	Fy
 2
+4 200 0
 5 200 0
-6 200 0
 

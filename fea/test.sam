@@ -20,7 +20,10 @@ E  Poisson`s Ratio
  #Boundary Condition
 Node    DOF     Value
 2
-[ 20000.]
+[   0.  0   0.]
+[   0.  1   0.]
+[   1.  0   0.]
+[   1.  1   0.]
 [ 0.33]
  #Force
 Node   Fx  Fy

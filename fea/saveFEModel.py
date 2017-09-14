@@ -31,8 +31,8 @@ def saveFEModel(fileName,model = FEModel.FEModel):
     #Boundary Condition
     file1.write("#Boundary Condition\n")
     file1.write("Node    DOF     Value\n")
-    file1.write(str(len(model.material))+"\n")
-    for i3 in model.material:
+    file1.write(str(len(model.boundary_constraints))+"\n")
+    for i3 in model.boundary_constraints:
         file1.write(str(i3)+"\n")
     file1.write(" ")
 

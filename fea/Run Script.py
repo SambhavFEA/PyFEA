@@ -10,8 +10,8 @@ if __name__ == '__main__':
     assemble_global_stiffness(Mod)
     apply_constraints(Mod)
     solveFEModel(Mod)
-    filename = 'test'
-    saveFEModel(filename,Mod)
-    print Mod.disp_result
+    #filename = 'test'
+    #saveFEModel(filename,Mod)
+    print Mod.uDisp
     pass
 

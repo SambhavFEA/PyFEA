@@ -8,7 +8,7 @@ def apply_constraints(model = FEModel.FEModel):
     nnpe = getattr(model, 'nnpe')
     num_of_nodes = len(getattr(model, 'nodes'))
 
-    model.positions = np.array([])
+    positions = []
 
     forces = getattr(model, 'forces')
     forces_size = np.shape(forces)
@@ -19,7 +19,7 @@ def apply_constraints(model = FEModel.FEModel):
         ff[(node_num-1) * ndof] = forces[i, 1]
         ff[((node_num-1) * ndof) + 1] = forces[i, 2]
 
-    setattr(model, 'fForce', ff)
+    #setattr(model, 'fForce', ff)
 
     displacement = getattr(model, 'boundary_constraints')
     disp_size = np.shape(displacement)
@@ -29,13 +29,17 @@ def apply_constraints(model = FEModel.FEModel):
         node_num = int(displacement[i, 0])
         dd[(node_num * ndof) + int(displacement[i, 1])] = displacement[i, 2]
         if displacement[i, 2] == 0.:
-            np.append(model.positions, int((displacement[i, 0] * ndof) + displacement[i, 1]))   #Append command not working. Positions is still an empty array
+          positions.append(int((displacement[i, 0] * ndof) + displacement[i, 1])) #Append command not working. Positions is still an empty array
 
     kstiff = getattr(model, 'kStif')
-    np.delete(kstiff, model.positions, axis=0)
-    np.delete(kstiff, model.positions, axis=1)
+    posit = np.array(positions)
+    kstiff = np.delete(kstiff, positions , axis=0)
+    kstiff = np.delete(kstiff, positions, axis=1)
+
+    dd = np.delete(dd,positions,axis=0)
+    ff = np.delete(ff,positions,axis=0)
 
     setattr(model, 'uDisp', dd)
     setattr(model, 'kStif', kstiff)
-
+    setattr(model, 'fForce', ff)
     return

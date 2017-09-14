@@ -16,8 +16,8 @@ def assemble_global_stiffness(model = FEModel.FEModel):
     num_of_nodes_elem = getNumOfNodes(model)
     total_num_of_nodes = getTotalNodes(model)
     dof_node = getDof(model)
-    model.kStif = elem_stiff(model)
-    model.global_stiffness = np.zeros((total_num_of_nodes*dof_node, total_num_of_nodes*dof_node))
+    element_kStif = elem_stiff(model)
+    model.kStif = np.zeros((total_num_of_nodes * dof_node, total_num_of_nodes * dof_node))
 
 
     for elem_num in range(num_of_elem):
@@ -27,7 +27,7 @@ def assemble_global_stiffness(model = FEModel.FEModel):
                     for j in range(dof_node):
                         row = dof_node*(int(model.ele[elem_num, a]-1)) + i    # Not sure how elem_connectivity table will look like
                         col = dof_node*(int(model.ele[elem_num, b]-1)) + j
-                        model.global_stiffness[row, col] = model.global_stiffness[row, col] + model.kStif[(dof_node * a) + i, (dof_node * b) + j]  # Cross-check the valus of elem_stiffness corresponding to global position
+                        model.kStif[row, col] = model.kStif[row, col] + element_kStif[(dof_node * a) + i, (dof_node * b) + j]  # Cross-check the valus of elem_stiffness corresponding to global position
 
 
 

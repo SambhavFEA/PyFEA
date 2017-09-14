@@ -3,7 +3,7 @@ import FEModel
 
 def solveFEModel(model = FEModel.FEModel):
 
-    model.disp_result = np.matmul(model.fForce,np.linalg.inv(model.global_stiffness))
+    model.uDisp = np.matmul(model.fForce,np.linalg.inv(model.kStif))
 
 def resultantNodes (model = FEModel.FEModel):
 

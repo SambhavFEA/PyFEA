@@ -27,13 +27,13 @@ class FEModel(object):
         self.nodes = nodes
         self.material = material
         self.forces = forces
-        constraints = fixtures
+        self.boundary_constraints = fixtures
 
         nodesSize = np.shape(nodes)
 
-        kStif = np.zeros((nodesSize[0] * self.ndof, nodesSize[0] * self.ndof))
-        uDisp = np.zeros(nodesSize[0] * self.ndof)
-        fForce = np.zeros(nodesSize[0] * self.ndof)
+        self.kStif = np.zeros((nodesSize[0] * self.ndof, nodesSize[0] * self.ndof))
+        self.uDisp = np.zeros(nodesSize[0] * self.ndof)
+        self.fForce = np.zeros(nodesSize[0] * self.ndof)
         return
 
     def read_input_2D(self,filename):
