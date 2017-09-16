@@ -17,7 +17,7 @@ Element Node1	Node2	Node3	Node4
 #Material Properties
 E		Poisson`s Ratio
 2
-20000.0
+200000.0
 0.33
 
 #Boundary Condition
