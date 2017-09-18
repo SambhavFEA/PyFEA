@@ -5,7 +5,6 @@ import globalStiffAssem
 from FESolve import FeLuDecompSolve
 
 import globalStiffAssem
-from solveFEModel import solveFEModel
 
 if __name__ == '__main__':
     #Mod = FEModel.FEModel('2DMeshTest.sam')
