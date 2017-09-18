@@ -361,7 +361,7 @@ class PyFEApp(App):
         root.add_widget(ModelScreen(name='model'))
         root.add_widget(MaterialScreen(name='material'))
         root.add_widget(ResultScreen(name='result'))
-        root.current = 'result'
+        root.current = 'model'
 
         open_screen = root.get_screen('open')
 

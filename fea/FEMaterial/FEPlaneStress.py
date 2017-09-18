@@ -32,6 +32,6 @@ class FEPlaneStress(FEMaterial):
             [1 / 8 - (3 * mu) / 8, mu / 6, - mu / 8 - 1 / 8, mu / 12 - 1 / 4, (3 * mu) / 8 - 1 / 8, - mu / 12 - 1 / 4,
              mu / 8 + 1 / 8, 1 / 2 - mu / 6]]
 
-        ke = h * (E / (1 - mu ^ 2)) * np.array(k)
+        ke = h * (E / (1 - mu**2)) * np.array(k)
 
         return ke

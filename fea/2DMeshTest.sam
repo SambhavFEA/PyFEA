@@ -16,9 +16,10 @@ Element Node1	Node2	Node3	Node4
 
 #Material Properties
 E		Poisson`s Ratio
-2
+3
 200000.0
 0.33
+0.5
 
 #Boundary Condition
 ConstraintNo	Node	DOF		Value

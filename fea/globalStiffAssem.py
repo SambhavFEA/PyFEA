@@ -25,7 +25,7 @@ class globalStiffAssem(object):
         num_of_nodes_elem = (len(model.ele[0]))
         total_num_of_nodes = len(model.nodes)
         dof_node = 2
-        element_kStif = model.material.elem_stiffness
+        element_kStif = model.material.get_element_stiffness_matrix(0)
         model.kStif = np.zeros((total_num_of_nodes * dof_node, total_num_of_nodes * dof_node))
 
         for elem_num in range(num_of_elem):

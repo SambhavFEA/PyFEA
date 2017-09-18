@@ -15,10 +15,10 @@ if __name__ == '__main__':
     #saveFEModel(filename,Mod)
     fileI = fileI_O.fileI_O('2DMeshTest.sam')
 
-    globalStiffAssem.globalStiffAssem.assemble_global_stiffness(fileI.FEModel)
-    globalStiffAssem.globalStiffAssem.apply_constraints(fileI.FEModel)
+    globalStiffAssem.globalStiffAssem.assemble_global_stiffness(fileI.femodel)
+    globalStiffAssem.globalStiffAssem.apply_constraints(fileI.femodel)
 
-    solver = FeLuDecompSolve(fileI.FEModel)
+    solver = FeLuDecompSolve(fileI.femodel)
 
     #print Mod.uDisp
     pass

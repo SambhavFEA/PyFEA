@@ -1,12 +1,58 @@
 import numpy as np
-import FEModel
+from FEModel import FEModel
+from fea.FEMaterial.FEPlaneStress import FEPlaneStress
+
+
 class fileI_O(object):
 
+
     def __init__(self, filename):
-        self.FEModel = FEModel.FEModel (filename)
+
+        f = open(filename, 'r')
+        lines = f.readlines()
+
+        # Node Coordinate Matrix
+        num_node_coord = int(lines[2])
+        nodes = np.zeros([num_node_coord, 2])
+        for i in range(num_node_coord):
+            nodes[i] = list(map(float, lines[2 + i + 1].split(" ")))
+
+        # Connectivity Matrix
+        num_elem = int(lines[6 + num_node_coord][0])
+        # Dynamic nnpe (nnpe stays const)
+        nnpe = np.shape((list(map(int, lines[8 + num_node_coord].split(" ")))))[0]
+
+        ele = np.zeros((num_elem, nnpe))
+        for j in range(num_elem):
+            ele[j] = list(map(int, lines[7 + num_node_coord + j].split(" ")))
+
+        # Material Properties
+        num_of_mat_prop = int(lines[
+                                  10 + num_node_coord + num_elem])  # Hash Mapping can be used for different type of material properties. Dummy!
+        material = np.zeros([num_of_mat_prop, 1])
+        for k in range(num_of_mat_prop):
+            material[k] = float(lines[10 + num_node_coord + num_elem + k + 1])
+        materialobj = FEPlaneStress(material)
+
+        # Boundary Constraint
+        num_of_bc = int(lines[14 + num_node_coord + num_elem + num_of_mat_prop])
+        boundary_constraints = np.zeros([num_of_bc, 3])
+        for l in range(num_of_bc):
+            boundary_constraints[l] = list(
+                map(float, lines[14 + num_node_coord + num_elem + num_of_mat_prop + l + 1].split(" ")))
+
+        # Force Constraint
+        num_of_fc = int(lines[18 + num_node_coord + num_elem + num_of_mat_prop + num_of_bc])
+        forces = np.zeros([num_of_fc, 3])
+        for m in range(num_of_fc):
+            forces[m] = list(
+                map(float, lines[18 + num_node_coord + num_elem + num_of_mat_prop + num_of_bc + m + 1].split(" ")))
+
+        self.femodel = FEModel(ele, nodes, materialobj, forces, boundary_constraints)
+
         self.path = filename
 
-    def saveFEModel(self, fileName ):
+    def saveFEModel(self, fileName):
         file1 = open(fileName + '.sam', "w")
 
         # Node Coordinate
