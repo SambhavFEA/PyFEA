@@ -7,7 +7,7 @@ def solveFEModel(model = FEModel.FEModel):
 
 def resultantNodes (model = FEModel.FEModel):
 
-    tempArray = model.disp_result.reshape(6,2)
+    tempArray = model.uDisp.reshape(6,2)
     finalArray =  np.zeros(len(tempArray))
     for i in model.nodes:
         finalArray[i] = model.nodes[i] + tempArray[i]

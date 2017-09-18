@@ -1,9 +1,10 @@
 import FEModel
 import numpy as np
 import fileI_O
+import globalStiffAssem
+from FESolve import FeLuDecompSolve
 
-from assemble_global_stiffness import assemble_global_stiffness
-from apply_constraints import apply_constraints
+import globalStiffAssem
 from solveFEModel import solveFEModel
 
 if __name__ == '__main__':
@@ -14,7 +15,11 @@ if __name__ == '__main__':
     #filename = 'test'
     #saveFEModel(filename,Mod)
     fileI = fileI_O.fileI_O('2DMeshTest.sam')
-    fileI.saveFEModel('fileI_Otest')
+
+    globalStiffAssem.globalStiffAssem.assemble_global_stiffness(fileI.FEModel)
+    globalStiffAssem.globalStiffAssem.apply_constraints(fileI.FEModel)
+
+    solver = FeLuDecompSolve(fileI.FEModel)
 
     #print Mod.uDisp
     pass
