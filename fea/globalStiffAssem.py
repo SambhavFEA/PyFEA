@@ -81,6 +81,7 @@ class globalStiffAssem(object):
         setattr(model, 'uDisp', dd)
         setattr(model, 'kStif', kstiff)
         setattr(model, 'fForce', ff)
+        setattr(model, 'positions', posit)
         return
 
 
