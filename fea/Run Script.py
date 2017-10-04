@@ -16,10 +16,15 @@ if __name__ == '__main__':
     fileI = fileI_O.fileI_O('2DMeshTest.sam')
 
     globalStiffAssem.globalStiffAssem.assemble_global_stiffness(fileI.femodel)
+    #print fileI.femodel.kStif
+    print fileI.femodel.material.get_element_stiffness_matrix(0)
     globalStiffAssem.globalStiffAssem.apply_constraints(fileI.femodel)
 
     solver = FeLuDecompSolve(fileI.femodel)
 
-    #print Mod.uDisp
+    print solver.finalArray
+
+
+
     pass
 

@@ -1,6 +1,6 @@
 import numpy as np
 from FEModel import FEModel
-from fea.FEMaterial.FEPlaneStress import FEPlaneStress
+from fea.FEMaterial.FePlaneStress2 import FEPlaneStress2
 
 
 class fileI_O(object):
@@ -32,7 +32,7 @@ class fileI_O(object):
         material = np.zeros([num_of_mat_prop, 1])
         for k in range(num_of_mat_prop):
             material[k] = float(lines[10 + num_node_coord + num_elem + k + 1])
-        materialobj = FEPlaneStress(material)
+        materialobj = FEPlaneStress2(material)
 
         # Boundary Constraint
         num_of_bc = int(lines[14 + num_node_coord + num_elem + num_of_mat_prop])

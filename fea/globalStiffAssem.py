@@ -1,8 +1,8 @@
 import FEModel
 import numpy as np
 
-class globalStiffAssem(object):
 
+class globalStiffAssem(object):
     @staticmethod
     def getNumOfElem(model=FEModel.FEModel):
         return len(model.ele)
@@ -33,11 +33,11 @@ class globalStiffAssem(object):
                 for i in range(dof_node):
                     for b in range(num_of_nodes_elem):
                         for j in range(dof_node):
-                            row = dof_node * (
-                            int(model.ele[elem_num, a] - 1)) + i  # Not sure how elem_connectivity table will look like
-                            col = dof_node * (int(model.ele[elem_num, b] - 1)) + j
-                            model.kStif[row, col] = model.kStif[row, col] + element_kStif[(dof_node * a) + i, (dof_node * b) + j]  # Cross-check the valus of elem_stiffness corresponding to global position
-
+                            row = dof_node * (int(model.ele[elem_num, a])) + i
+                            col = dof_node * (int(model.ele[elem_num, b])) + j
+                            ele_row = (dof_node * a) + i
+                            ele_col = (dof_node * b) + j
+                            model.kStif[row, col] = model.kStif[row, col] + element_kStif[ele_row, ele_col]
 
     @staticmethod
     def apply_constraints(model=FEModel.FEModel):
@@ -54,8 +54,8 @@ class globalStiffAssem(object):
 
         for i in range(forces_size[0]):
             node_num = int(forces[i, 0])
-            ff[(node_num - 1) * ndof] = forces[i, 1]
-            ff[((node_num - 1) * ndof) + 1] = forces[i, 2]
+            ff[node_num * ndof] = forces[i, 1]
+            ff[(node_num * ndof) + 1] = forces[i, 2]
 
         # setattr(model, 'fForce', ff)
 
@@ -83,5 +83,3 @@ class globalStiffAssem(object):
         setattr(model, 'fForce', ff)
         setattr(model, 'positions', posit)
         return
-
-

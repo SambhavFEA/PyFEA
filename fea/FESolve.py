@@ -16,13 +16,13 @@ class FeLuDecompSolve(object):
         j=0
         k=0
         for i in range(len(full_disp)):
-            if i < len(model.positions):
+            if j < len(model.positions):
 
                 if i != model.positions[j]:
                     self.finalArray[i] = model.uDisp[k]
                     k = k +1
                 else:
-                    model.boundary_constraints[j][2]
+                    self.finalArray[i] = model.boundary_constraints[j][2]
                     j = j+1
             else:
                 self.finalArray[i] = model.uDisp[k]
