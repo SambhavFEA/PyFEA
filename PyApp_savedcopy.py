@@ -12,7 +12,6 @@ Config.set('graphics', 'resizable', False)
 import numpy as np
 import kivy
 import math
-from kivy.lang import Builder
 
 from kivy.app import App
 from kivy.app import Widget
@@ -22,12 +21,11 @@ from kivy.core.window import Window
 
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.textinput import TextInput
-from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 from kivy.graphics import Rectangle, Color
 
-from fea.FEModel import FEModel
+from fea.FEModel.FELinearModel import FEModel
 
 kivy.require('1.10.0')
 

@@ -1,6 +1,7 @@
 import numpy as np
-from FEModel import FEModel
+
 from fea.FEMaterial.FePlaneStress2 import FEPlaneStress2
+from fea.FEModel.FELinearModel import FEModel
 
 
 class fileI_O(object):

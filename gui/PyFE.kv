@@ -11,16 +11,16 @@
         BoxLayout:
 
             size_hint:1,None
-            height:30
+            height:dp(30)
 
             Button:
                 id: but
                 size_hint:None,1
-                width:40
+                width:dp(40)
                 text:"Open"
                 on_press:root.open()
 
-            CustomInput:
+            NumericInput:
                 id: txt_inp
                 multiline: False
                 text: filechooser.path
@@ -33,72 +33,86 @@
 
 <ModelScreen>:
     grid:grid
+    row_one:row_one
 
     BoxLayout:
         orientation:'vertical'
 
         BoxLayout:
-            height:40
+            orientation:'vertical'
+            butOpen:butOpen
+            butSave:butSave
+            butMaterial:butMaterial
 
-            Button:
-                id: butOpen
-                size_hint:None,1
-                width:40
-                text:"Open"
-                on_press:root.open_screen()
 
-            Button:
-                id: butSave
-                size_hint:None,1
-                width:40
-                text:"Save"
-                on_press: root.save()
+            BoxLayout:
+                id:row_one
+                height:dp(40)
+                dropMat:dropMat
 
-            Button:
-                id: butMaterial
-                size_hint:None,1
-                width:40
-                text:"Material"
-                on_press:root.material_screen()
+                Button:
+                    id: butOpen
+                    text:"Open"
+                    on_press:root.open_screen()
 
-            ToggleButton:
-                id: tbutPart
-                group: "container_action"
-                size_hint:None,1
-                width:40
-                text:"Part"
+                Button:
+                    id: butSave
+                    text:"Save"
+                    on_press: root.save()
 
-            ToggleButton:
-                id: tbutForceV
-                group: "container_action"
-                size_hint:None,1
-                width:60
-                text:"Forces V"
+                SolnProcDropDown:
+                    id: dropSoln
 
-            ToggleButton:
-                id: tbutForceH
-                group: "container_action"
-                size_hint:None,1
-                width:60
-                text:"Forces H"
+                MaterialDropDown:
+                    id: dropMat
 
-            ToggleButton:
-                id: tbutSupportV
-                group: "container_action"
-                size_hint:None,1
-                width:100
-                text:"Supports V"
+                Button:
+                    id: butMaterial
+                    text:"Material"
+                    on_press:root.material_screen()
 
-            ToggleButton:
-                id: tbutSupportH
-                group: "container_action"
-                size_hint:None,1
-                width:100
-                text:"Supports H"
+                ToggleButton:
+                    id: tbutPart
+                    group: "container_action"
+                    text:"Part"
 
-            CustomInput:
-                id: material
-                multiline: False
+                ToggleButton:
+                    id: tbutForceV
+                    group: "container_action"
+                    text:"Forces V"
+
+                ToggleButton:
+                    id: tbutForceH
+                    group: "container_action"
+                    text:"Forces H"
+
+                ToggleButton:
+                    id: tbutSupportV
+                    group: "container_action"
+                    text:"Supports V"
+
+                ToggleButton:
+                    id: tbutSupportH
+                    group: "container_action"
+                    text:"Supports H"
+
+            BoxLayout:
+                id:row_two
+                height:40
+
+                Label:
+                    text: 'X'
+
+                NumericInput:
+                    id: x
+                    multiline: False
+
+                Label:
+                    text: 'Y'
+
+                NumericInput:
+                    id: y
+                    multiline: False
 
         Blackboard:
             id: grid
@@ -127,7 +141,7 @@
             Label:
                 text: 'Young Modulus'
 
-            CustomInput:
+            NumericInput:
                 id: young
                 multiline: False
 
@@ -137,7 +151,7 @@
             Label:
                 text: 'Poisson ratio'
 
-            CustomInput:
+            NumericInput:
                 id: poisson
                 multiline: False
 

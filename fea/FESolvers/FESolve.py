@@ -1,10 +1,11 @@
-from globalStiffAssem import globalStiffAssem
-import FEModel
 import numpy as np
 
-class FeLuDecompSolve(object):
+from fea.FEModel import FELinearModel
 
-    def __init__(self, model= FEModel.FEModel):
+
+class FELuDecompSolve(object):
+
+    def __init__(self, model= FELinearModel.FEModel):
         full_disp = np.zeros(len(model.uDisp) + len(model.positions))
         model.uDisp = np.matmul(model.fForce,np.linalg.inv(model.kStif))
         self.finalArray = np.zeros(len(full_disp))
@@ -30,11 +31,11 @@ class FeLuDecompSolve(object):
 
 
 
-        #tempArray = np.array(FeLuDecompSolve.solDisp.reshape(4, 2))
+        #tempArray = np.array(FELuDecompSolve.solDisp.reshape(4, 2))
         #finalArray = np.zeros(len(tempArray))
         #for i in range(len(model.nodes)):
         #    finalArray[i] = model.nodes[i] + tempArray[i]
 
-        #FeLuDecompSolve.resNodes = finalArray
+        #FELuDecompSolve.resNodes = finalArray
 
 

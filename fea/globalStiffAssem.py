@@ -1,18 +1,19 @@
-import FEModel
 import numpy as np
+
+from fea.FEModel import FELinearModel
 
 
 class globalStiffAssem(object):
     @staticmethod
-    def getNumOfElem(model=FEModel.FEModel):
+    def getNumOfElem(model=FELinearModel.FEModel):
         return len(model.ele)
 
     @staticmethod
-    def getNumOfNodes(model=FEModel.FEModel):
+    def getNumOfNodes(model=FELinearModel.FEModel):
         return (len(model.ele[0]))  # Number of nodes per element is constant
 
     @staticmethod
-    def getTotalNodes(model=FEModel.FEModel):
+    def getTotalNodes(model=FELinearModel.FEModel):
         return len(model.nodes)
 
     @staticmethod
@@ -20,7 +21,7 @@ class globalStiffAssem(object):
         return 2  # Finalize on how to decide degree of freedom
 
     @staticmethod
-    def assemble_global_stiffness(model=FEModel.FEModel):
+    def assemble_global_stiffness(model=FELinearModel.FEModel):
         num_of_elem = len(model.ele)
         num_of_nodes_elem = (len(model.ele[0]))
         total_num_of_nodes = len(model.nodes)
@@ -40,7 +41,7 @@ class globalStiffAssem(object):
                             model.kStif[row, col] = model.kStif[row, col] + element_kStif[ele_row, ele_col]
 
     @staticmethod
-    def apply_constraints(model=FEModel.FEModel):
+    def apply_constraints(model=FELinearModel.FEModel):
 
         ndof = getattr(model, 'ndof')
         nnpe = getattr(model, 'nnpe')

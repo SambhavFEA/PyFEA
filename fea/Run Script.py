@@ -1,10 +1,6 @@
-import FEModel
-import numpy as np
 import fileI_O
 import globalStiffAssem
-from FESolve import FeLuDecompSolve
-
-import globalStiffAssem
+from fea.FESolvers.FESolve import FELuDecompSolve
 
 if __name__ == '__main__':
     #Mod = FEModel.FEModel('2DMeshTest.sam')
@@ -20,7 +16,7 @@ if __name__ == '__main__':
     print fileI.femodel.material.get_element_stiffness_matrix(0)
     globalStiffAssem.globalStiffAssem.apply_constraints(fileI.femodel)
 
-    solver = FeLuDecompSolve(fileI.femodel)
+    solver = FELuDecompSolve(fileI.femodel)
 
     print solver.finalArray
 
