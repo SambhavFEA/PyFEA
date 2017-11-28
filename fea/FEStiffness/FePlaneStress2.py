@@ -1,9 +1,9 @@
 import abc
-from fea.FEStiffness.FEMaterial import FEMaterial
+from fea.FEStiffness.FEStiffness import FEStiffness
 import numpy as np
 
 
-class FEPlaneStress2(FEMaterial):
+class FEPlaneStress2(FEStiffness):
     material = np.array([])
 
     def __init__(self, *args):

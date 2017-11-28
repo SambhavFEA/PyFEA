@@ -1,11 +1,11 @@
 import abc
-from fea.FEStiffness.FEMaterial import FEMaterial
+from fea.FEStiffness.FEStiffness import FEStiffness
 from fea.FEShapeFunction.FESFIsoParaQuadElement import FEIsoParaQuadElement
 from fea.Integration.GaussLegendreQuadrature import GaussLegendreQuadrature
 import numpy as np
 
 
-class FEPlaneStress(FEMaterial):
+class FEPlaneStress(FEStiffness):
     material = np.array([])
 
     def __init__(self, *args, **kwargs):
