@@ -1,6 +1,6 @@
 import numpy as np
 
-from fea.FEMaterial.FEMaterial import FEMaterial
+from fea.FEStiffness.FEMaterial import FEMaterial
 
 
 class FEModel(object):

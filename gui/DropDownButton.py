@@ -1,7 +1,7 @@
 from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button
 
-import fea.FEMaterial
+import fea.FEStiffness
 import fea.FESolnProc
 import inspect
 
@@ -37,7 +37,7 @@ class DropDownButton(Button):
 class MaterialDropDown(DropDownButton):
     def __init__(self, **kwargs):
         '''
-        clss = inspect.getmembers(fea.FEMaterial, inspect.isclass)
+        clss = inspect.getmembers(fea.FEStiffness, inspect.isclass)
         cll_name = []
         for index in range(len(clss) - 1):
             cll_name.append(clss[index + 1][0])

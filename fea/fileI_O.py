@@ -1,6 +1,6 @@
 import numpy as np
 
-from fea.FEMaterial.FePlaneStress2 import FEPlaneStress2
+from fea.FEStiffness.FePlaneStress2 import FEPlaneStress2
 from fea.FEModel.FELinearModel import FEModel
 
 
