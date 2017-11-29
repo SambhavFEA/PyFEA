@@ -1,37 +1,13 @@
 import abc
 from fea.FEStiffness.FEStiffness import FEStiffness
+from fea.FEShapeFunction.FESFIsoParaQuadElement import FEIsoParaQuadElement
+from fea.Integration.GaussLegendreQuadrature import GaussLegendreQuadrature
 import numpy as np
 
 
-class FEPlaneStress(FEStiffness):
-    material = np.array([])
+class FEPlaneStrain2D(FEStiffness):
 
-    def __init__(self, *args):
-        self.material = args[0]
-
-    def get_element_stiffness_matrix(self, i):
-        E = self.material[0][i]
-        mu = self.material[1][i]
-        h = self.material[2][i]
-
-        k = [
-            [1 / 2 - (2 * mu) / 3, -1 / 8, mu / 6, mu / 2 - 1 / 8, mu / 3 - 1 / 4, 1 / 8, mu / 6 - 1 / 4,
-             1 / 8 - mu / 2]
-            [-1 / 8, 1 / 2 - (
-            2 * mu) / 3, 1 / 8 - mu / 2, mu / 6 - 1 / 4, 1 / 8, mu / 3 - 1 / 4, mu / 2 - 1 / 8, mu / 6]
-            [mu / 6, 1 / 8 - mu / 2, 1 / 2 - (
-            2 * mu) / 3, 1 / 8, mu / 6 - 1 / 4, mu / 2 - 1 / 8, mu / 3 - 1 / 4, -1 / 8]
-            [mu / 2 - 1 / 8, mu / 6 - 1 / 4, 1 / 8, 1 / 2 - (
-            2 * mu) / 3, 1 / 8 - mu / 2, mu / 6, -1 / 8, mu / 3 - 1 / 4]
-            [mu / 3 - 1 / 4, 1 / 8, mu / 6 - 1 / 4, 1 / 8 - mu / 2, 1 / 2 - (
-            2 * mu) / 3, -1 / 8, mu / 6, mu / 2 - 1 / 8]
-            [1 / 8, mu / 3 - 1 / 4, mu / 2 - 1 / 8, mu / 6, -1 / 8, 1 / 2 - (
-            2 * mu) / 3, 1 / 8 - mu / 2, mu / 6 - 1 / 4]
-            [mu / 6 - 1 / 4, mu / 2 - 1 / 8, mu / 3 - 1 / 4, -1 / 8, mu / 6, 1 / 8 - mu / 2, 1 / 2 - (
-            2 * mu) / 3, 1 / 8]
-            [1 / 8 - mu / 2, mu / 6, -1 / 8, mu / 3 - 1 / 4, mu / 2 - 1 / 8, mu / 6 - 1 / 4, 1 / 8, 1 / 2 - (
-            2 * mu) / 3]]
-
-        ke = h * (E / (1 - mu ^ 2)) * np.array(k)
-
-        return ke
+    def get_C(self):
+        E = self.material[0]
+        mu = self.material[1]
+        return E * np.array([[1 - mu, mu, 0.], [mu, 1. - mu, 0.], [0., 0., 0.5 - mu]]) / ((1. + mu) * (1. - (2. * mu)))
