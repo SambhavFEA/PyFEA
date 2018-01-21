@@ -1,0 +1,28 @@
+#Node Coordinate
+NodeNumber	X	Y
+1			0.0	1.0
+2			0.0	0.0
+3			1.0	0.0
+4			1.0	1.0
+
+
+#Connectivity Table
+Element Node1	Node2	Node3
+1		1		2		4
+2		2		3		4
+
+#Material Properties
+E 		Poisson`s Ratio
+2*(10^7)	0.3
+
+#Boundary Condition
+ConstraintNo	Node	DOF		Value
+1				1		1 		0
+2				1		2		0
+3				2		1		0
+4				2		2		0
+
+
+#Force
+Node	Fx	Fy
+3		10
